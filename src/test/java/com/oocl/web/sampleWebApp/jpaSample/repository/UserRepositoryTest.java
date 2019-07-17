@@ -1,7 +1,6 @@
 package com.oocl.web.sampleWebApp.jpaSample.repository;
 
 import com.oocl.web.sampleWebApp.jpaSample.entity.User;
-import com.oocl.web.sampleWebApp.jpaSample.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +18,8 @@ public class UserRepositoryTest {
 
   @Autowired
   private UserRepository userRepository;
+  @Autowired
+  SingleEntityRepository singleEntityRepository;
 
   @Test
   public void test_should_return_user_when_the_user_exist() {
@@ -34,6 +35,25 @@ public class UserRepositoryTest {
     Assertions.assertEquals(1, userList.size());
     Assertions.assertEquals("test", userList.get(0).getName());
   }
-
+  @Test
+  public void test_should_return_singleEntity_when_the_singleEntity_exist(){
+    //given
+    SingleEntity singleEntity = new SingleEntity("Tomi", 20);
+    singleEntityRepository.save(singleEntity);
+    //when
+    SingleEntity singleEntity1 = singleEntityRepository.findAll().get(0);
+    //then
+    Assertions.assertEquals("Tomi",singleEntity1.getName());
+  }
+  @Test
+  public void test_should_return_singleEntity_when_give_a_sanme(){
+    //given
+    SingleEntity singleEntity = new SingleEntity("Tomi", 20);
+    singleEntityRepository.save(singleEntity);
+    //when
+    SingleEntity singleEntity1 = singleEntityRepository.findAll().get(0);
+    //then
+    Assertions.assertEquals("Tomi",singleEntity1.getName());
+  }
 }
 
